@@ -1,0 +1,78 @@
+body {
+    margin: 2em;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(90, 92, 106, 1) 0%, rgba(32, 45, 58, 1) 81.3%);
+}
+
+h1 {
+    color: white;
+}
+
+.formulario{
+    margin-top: 3em;
+}
+
+.menu{
+    margin-top: 3em;
+}
+
+.items-menu{
+    margin-top: -10px;
+    background: none;
+	color: inherit;
+    height: 90px;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.productos-items-menu{
+    margin-top: -10px;
+    background: none;
+	color: inherit;
+    height: 70px;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.row button{
+    height: 60px;
+    font-size: 20px;
+}
+.row{
+    height: 80px;
+}
+h3{
+    font-size: 18px;
+}
+h6{
+    font-size: 14px;
+}
+
+#title{
+    margin-bottom: 40px;
+}
+.listProductos{
+    height: 60px;
+    margin-top: -20px;
+}
+.listProductos .row{
+    margin-top: -10px;
+}
+.listProductos img{
+    margin-top: -20px;
+}
+
+#btnIngresar {
+    height: auto;
+}
