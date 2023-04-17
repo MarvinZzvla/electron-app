@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js'
 
+
 // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js'
 import { getFirestore, setDoc, collection, doc,getDoc,getDocs,deleteDoc } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js'
@@ -57,10 +58,10 @@ export const login = async (email, password) => {
         return q.data()
     }
 
-    /***********GET DOC ******/
+    /***********GET DOC******/
 
-    export const getAllDocs = async (database) =>{
-      const result = await getDocs(collection(db, "db1/"+database+"/Productos"))
+    export const getAllDocs = async (database,section) =>{
+      const result = await getDocs(collection(db, "db1/"+database+"/"+section))
       return result;
     }
 

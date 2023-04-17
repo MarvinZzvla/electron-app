@@ -1,3 +1,5 @@
+
+
 /***** GET DATABASE NAME AND PUT IT ON THE TITLE */
 export let databaseOnlyName  = localStorage.getItem("database").split('~')[0]
 document.getElementById("title").innerHTML = databaseOnlyName

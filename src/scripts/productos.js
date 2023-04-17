@@ -2,7 +2,7 @@ import{getAllDocs,deleteProduct} from '../../firebase.js'
  
 let nameProduct;
 let databaseName = localStorage.getItem('database')
-const result = await getAllDocs(databaseName)
+const result = await getAllDocs(databaseName,'Productos')
 console.log(result.docs)
 
 result.docs.forEach(element => {

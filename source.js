@@ -1,5 +1,6 @@
 import { login, search } from './firebase.js'
 
+
 if(localStorage.getItem('isLogged')){
     window.location.replace('./home.html')
 }
@@ -16,8 +17,6 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }
         else{alert("Login failure")}
     }
-
-
 })
 
 async function loginSuccess(user, pass) {
