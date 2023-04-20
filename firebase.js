@@ -66,9 +66,10 @@ export const login = async (email, password) => {
     }
 
     /***********DELETE DOC **********/
-    export const deleteProduct = async (producto,database) => {
+    export const deleteProduct = async (database,route,itemName) => {
       let isGet;
-      const result = await deleteDoc(doc(db, "db1/"+database+"/Productos/"+producto)).then(() => {
+      console.log("db1/"+database+route+itemName)
+      const result = await deleteDoc(doc(db, "db1/"+database+route+itemName)).then(() => {
           console.log("Borrado del producto")
           isGet = true
       }).catch(err => {

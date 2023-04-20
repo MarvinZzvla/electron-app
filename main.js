@@ -5,11 +5,11 @@ const createWindow = () => {
         width: 600,
         height: 600,
         minWidth: 600,
+        maxHeight: 800,
         maxWidth: 800,
-        maxHeight: 800
     })
 
-    window.loadFile('index.html')
+    window.loadFile('./index.html')
 }
 app.whenReady().then(() => {
     createWindow();
