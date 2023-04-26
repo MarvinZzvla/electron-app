@@ -104,3 +104,23 @@ h6 {
     color: black;
 
 }
+
+.listFinanzas {
+    height: 550px;
+    margin-top: -5px;
+}
+
+.listFinanzas .row {
+    margin-top: -10px;
+}
+
+.finanzascontainer {
+    background-color: rgb(0, 121, 134);
+    height: 80px;
+    margin: 0;
+    border-radius: 20px;
+}
+
+.finanzascontainer h6{
+    color: white;
+}

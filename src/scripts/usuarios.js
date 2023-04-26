@@ -19,11 +19,13 @@ result.docs.forEach(element => {
   let list = Array.from(items).forEach(function (item) {
     item.addEventListener("click", async function(e){
       nameProduct = e.target.alt
+      console.log(nameProduct)
     })
   })
 
   document.getElementById("btnBorrar").addEventListener("click", async function(i){
-    const result = await deleteProduct(nameProduct,databaseName)
+    const route = "/Usuarios/"
+    const result = await deleteProduct(databaseName,route,nameProduct)
     if(result){
       console.log("Borrado con exito")
     } else{console.log("Ocurrio un error")}
