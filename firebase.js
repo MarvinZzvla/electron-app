@@ -3,7 +3,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.18.0/firebas
 
 // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js'
-import { getFirestore, setDoc, collection, doc,getDoc,getDocs,deleteDoc } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js'
+import { getFirestore, setDoc, collection, doc, getDoc, getDocs, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js'
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js'
 const firebaseConfig = {
   apiKey: "AIzaSyAu4yWhRLQ6s6qdhiQUKmZ36G3LIoVY32U",
@@ -27,59 +27,92 @@ export const login = async (email, password) => {
   const auth = getAuth();
   let answer;
   let data;
-  
-    await signInWithEmailAndPassword(auth, email, password).then((userCredentials) => {
-      const user = userCredentials;
-      data = user
-      console.log(user + ' logged ' + true);
-      answer = true;
-    }).catch((error) => {
-      const errorMessage = error.message
-      const errorCode = error.code
-      console.error(errorMessage + " " + errorCode)
-      answer = false;
-    })
 
-  return {"isLoggedIn": answer, "dataUser":data};
+  await signInWithEmailAndPassword(auth, email, password).then((userCredentials) => {
+    const user = userCredentials;
+    data = user
+    console.log(user + ' logged ' + true);
+    answer = true;
+  }).catch((error) => {
+    const errorMessage = error.message
+    const errorCode = error.code
+    console.error(errorMessage + " " + errorCode)
+    answer = false;
+  })
+
+  return { "isLoggedIn": answer, "dataUser": data };
+}
+
+/*****************SEARCH IN DATABASE  **************/
+export const search = async (uid) => {
+  const usersRef = doc(db, "db1/Usuarios/Usuarios/" + uid);
+  const q = await getDoc(usersRef);
+
+  if (q.exists()) {
+    console.log(q.data())
+  }
+  else {
+    console.log("Document not found")
   }
 
-  /*****************SEARCH IN DATABASE  **************/
-    export const search = async (uid) => {
-        const usersRef = doc(db,"db1/Usuarios/Usuarios/"+uid);
-        const q =  await getDoc(usersRef);
+  return q.data()
+}
 
-        if(q.exists()) {
-          console.log(q.data())
-        }
-        else {
-          console.log("Document not found")
-        }
+/***********GET DOC******/
 
-        return q.data()
+export const getAllDocs = async (database, section) => {
+  const result = await getDocs(collection(db, "db1/" + database + "/" + section))
+  return result;
+}
+
+/***********DELETE DOC **********/
+export const deleteProduct = async (database, route, itemName) => {
+  let isGet;
+  console.log("db1/" + database + route + itemName)
+  const result = await deleteDoc(doc(db, "db1/" + database + route + itemName)).then(() => {
+    console.log("Borrado del producto")
+    isGet = true
+  }).catch(err => {
+    console.log(err);
+    isGet = false
+  })
+
+  console.log(result)
+  return isGet;
+}
+
+
+export const getFinanzas = async (date,database) => {
+  let dayDate = `db1/${database}/Finanzas/${date[0]}/${date[1]}/${date[2]}`
+  let monthDate = `db1/${database}/Finanzas/${date[0]}/${date[1]}`
+  let yearDate = `db1/${database}/Finanzas/${date[0]}`
+
+  console.log(database)
+
+
+  const dayRef = doc(db, dayDate);
+  const monthRef = await getDocs(collection(db, monthDate))
+  const yearRef = doc(db, yearDate);
+  const yFinanzas = await getDoc(yearRef);
+  const mFinanzas = monthRef.docs[0] === undefined?{ventas:0, ganancias:0} : monthRef.docs[0].data()
+  const dayFinanzas = await getDoc(dayRef);
+
+
+
+  const finanzas = {
+    year: {
+      ventas: !yFinanzas.exists() ? 0 : yFinanzas.data().ventas,
+      ganancias: !yFinanzas.exists() ? 0 : yFinanzas.data().ganancias
+    },
+    month: {
+      ventas: mFinanzas.ventas,
+      ganancias: mFinanzas.ganancias
+    },
+    today: {
+      ventas: !dayFinanzas.exists() ? 0 : dayFinanzas.data().ventas,
+      ganancias: !dayFinanzas.exists() ? 0 : dayFinanzas.data().ganancias
     }
-
-    /***********GET DOC******/
-
-    export const getAllDocs = async (database,section) =>{
-      const result = await getDocs(collection(db, "db1/"+database+"/"+section))
-      return result;
-    }
-
-    /***********DELETE DOC **********/
-    export const deleteProduct = async (database,route,itemName) => {
-      let isGet;
-      console.log("db1/"+database+route+itemName)
-      const result = await deleteDoc(doc(db, "db1/"+database+route+itemName)).then(() => {
-          console.log("Borrado del producto")
-          isGet = true
-      }).catch(err => {
-        console.log(err);
-        isGet=false
-      })
-
-      console.log(result)
-      return isGet;
-    }
-
-
+  }
+  return finanzas
+}
 

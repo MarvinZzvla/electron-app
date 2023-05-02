@@ -4,8 +4,19 @@ let totalVentas = 0
 let databaseName = localStorage.getItem('database')
 let date = new Date().toLocaleDateString().split('/')
 let nameProduct;
-date[1].length >1 ? date = `${date[2]}-${date[1]}-${date[0]}` : date =`${date[2]}-0${date[1]}-${date[0]}`
 
+if(date[1].length >1 && date[0].length >1){
+  date = `${date[2]}-${date[1]}-${date[0]}`
+}
+else if (date[0].length == 1 && date[1].length == 1){
+  date = `${date[2]}-0${date[1]}-0${date[0]}`
+}
+else if(date[0].length == 1 && date[1].length >1){
+  date = `${date[2]}-${date[1]}-0${date[0]}`
+}
+else{
+  date = `${date[2]}-0${date[1]}-${date[0]}`
+}
 
 
 let thisdate = new Date()
@@ -16,8 +27,9 @@ init()
 async function init() {
     /*****GET DATA TODAY *******/
     document.getElementById('dateShow').innerHTML = thisdate.toLocaleDateString()
+    //document.getElementById('dateVentas').defaultValue = date
     document.getElementById('dateVentas').defaultValue = date
-
+    
     let docRef = 'Ventas/' + databaseName + dateFormat
    // console.log(docRef)
     const result = await getAllDocs(databaseName, docRef)
